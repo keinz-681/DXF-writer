@@ -1,5 +1,5 @@
 Attribute VB_Name = "DXFwriter"
-Sub DXFwriter1() 
+Sub DXFwriter1() 'layer-nameの自動記入
     stime
     Dim n As Integer, originpath, generatepath As String
     Dim txtLine(20) As String
@@ -16,7 +16,6 @@ Sub DXFwriter1()
     If (generatepath = originpath) Then
         MsgBox "よくないので強制終了"
         Exit Sub
-        
     End If
     
     'generatepath = DesktopFilepath(filePath) & "take3.dxf"
@@ -1354,10 +1353,4 @@ Sub head()
     Print #1, "2"           '1219
     Print #1, "ENTITIES"    '1220
     'Print #1, "0"
-End Sub
-Sub foot()
-    Print #3, "0"
-    Print #3, "ENDSEC"
-    Print #3, "0"
-    Print #3, "EOF"
 End Sub
