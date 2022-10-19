@@ -55,48 +55,27 @@ Sub DXFwriter1() 'layer-nameの自動記入
         If (txtLine(20) = "_0-0_") Then
             txtLine(20) = txtLine(20) & "ORIGIN"
             'Debug.Print txtLine(20)
-            
-        End If
-        
-        If (txtLine(20) = "_0-1_") Then
+        ElseIf (txtLine(20) = "_0-1_") Then
             txtLine(20) = txtLine(20) & "CAM01"
             'Debug.Print txtLine(20)
-        
-        End If
-        If (txtLine(20) = "_0-2_") Then
+        ElseIf (txtLine(20) = "_0-2_") Then
             txtLine(20) = txtLine(20) & "CAM02"
             'Debug.Print txtLine(20)
-        
-        End If
-
-        If (txtLine(20) = "_0-3_") Then
+        ElseIf (txtLine(20) = "_0-3_") Then
             txtLine(20) = txtLine(20) & "CAM03"
             'Debug.Print txtLine(20)
-        
-        End If
-
-        If (txtLine(20) = "_0-4_") Then
+        ElseIf (txtLine(20) = "_0-4_") Then
             txtLine(20) = txtLine(20) & "CAM04"
             'Debug.Print txtLine(20)
-        
-        End If
-
-        If (txtLine(20) = "_0-5_") Then
+        ElseIf (txtLine(20) = "_0-5_") Then
             txtLine(20) = txtLine(20) & "CAM05"
             'Debug.Print txtLine(20)
-        
-        End If
-
-        If (txtLine(20) = "_0-6_") Then
+        ElseIf (txtLine(20) = "_0-6_") Then
             txtLine(20) = txtLine(20) & "CAM06"
             'Debug.Print txtLine(20)
-        
-        End If
-
-        If (txtLine(20) = "_0-7_") Then
+        ElseIf (txtLine(20) = "_0-7_") Then
             txtLine(20) = txtLine(20) & "CAM07"
             'Debug.Print txtLine(20)
-        
         End If
 
         
