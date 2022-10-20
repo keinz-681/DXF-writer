@@ -12,7 +12,7 @@ Sub DXFwriter1()
     If (originpath = False) Then
         Exit Sub
     End If
-    generatepath = Application.GetSaveAsFilename("output", filefilter:="dxf(*.dxf;),", Title:="生成先のファイルを指定", buttontext:="おっぱい")
+    generatepath = Application.GetSaveAsFilename("output", filefilter:="dxf(*.dxf;),", Title:="生成先のファイルを指定")
     If (generatepath = originpath) Then
         Exit Sub
     End If
