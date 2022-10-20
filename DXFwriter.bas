@@ -1,96 +1,80 @@
 Attribute VB_Name = "DXFwriter"
-Sub DXFwriter1() 'layer-nameã®è‡ªå‹•è¨˜å…¥
+' dxf writer ‚ÉŠÖ‚·‚éˆê˜A‚Ì»ì
+Sub DXFwriter1()
     stime
     Dim n As Integer, originpath, generatepath As String
-    Dim txtLine(20) As String
+    Dim getline(2) As String
     
-    'set filepath
-    
+    Dim txtLine() As String
     ChDir DesktopFilepath(filePath)
-
-    originpath = Application.GetOpenFilename(filefilter:="DXFdata(*.dxf;),")
+    originpath = Application.GetOpenFilename(filefilter:="DXFdata(*.dxf;),", Title:="ƒŒƒCƒ„[–¼‚ğ‘‚¢‚Ä‚¢‚È‚¢ƒtƒ@ƒCƒ‹‚ğ‘I‘ğ")
+    
     If (originpath = False) Then
         Exit Sub
     End If
-    generatepath = Application.GetSaveAsFilename("output", filefilter:="dxf(*.dxf;),", Title:="ç”Ÿæˆå…ˆã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æŒ‡å®š", buttontext:="ãŠã£ã±ã„")
+    generatepath = Application.GetSaveAsFilename("output", filefilter:="dxf(*.dxf;),", Title:="¶¬æ‚Ìƒtƒ@ƒCƒ‹‚ğw’è", buttontext:="‚¨‚Á‚Ï‚¢")
     If (generatepath = originpath) Then
-        MsgBox "ã‚ˆããªã„ã®ã§å¼·åˆ¶çµ‚äº†"
         Exit Sub
     End If
     
-    'generatepath = DesktopFilepath(filePath) & "take3.dxf"
-    
-    Debug.Print originpath 'check path
-    Debug.Print generatepath
+    Open originpath For Input As #1
+        Do While Not EOF(1)
+            i = i + 1
+            Line Input #1, getline(0)
+        Loop
+    Close #1
     
     Open originpath For Input As #1
-    
-    Do While Not EOF(1)
-    Line Input #1, txtLine(0)
-    If (txtLine(0) = "ENTITIES") Then
-        
-        Sheets("Sheet1").Select
         Do While Not EOF(1)
-        i = i + 1
-        'Debug.Print i
-        Line Input #1, txtLine(0)
-        Cells(i, 1).Value = txtLine(0)
+            Line Input #1, getline(1)
+            
+            If (getline(1) = "ENTITIES") Then
+                ReDim txtLine(i)
+                Do While Not EOF(1)
+                    n = n + 1
+                    Line Input #1, txtLine(n)
+                Loop
+            End If
         Loop
-    End If
-    'Debug.Print txtLine(0)
-    Loop
     Close #1
     
     Open generatepath For Output As #1
-        head
+        head14
     Close #1
     
     Dim a As Integer
     
     Open generatepath For Append As #4
-    
-    Do While (1)
-        a = a + 1
-        txtLine(20) = Cells(a, 1).Value
-        If (txtLine(20) = "_0-0_") Then
-            txtLine(20) = txtLine(20) & "ORIGIN"
-            'Debug.Print txtLine(20)
-        ElseIf (txtLine(20) = "_0-1_") Then
-            txtLine(20) = txtLine(20) & "CAM01"
-            'Debug.Print txtLine(20)
-        ElseIf (txtLine(20) = "_0-2_") Then
-            txtLine(20) = txtLine(20) & "CAM02"
-            'Debug.Print txtLine(20)
-        ElseIf (txtLine(20) = "_0-3_") Then
-            txtLine(20) = txtLine(20) & "CAM03"
-            'Debug.Print txtLine(20)
-        ElseIf (txtLine(20) = "_0-4_") Then
-            txtLine(20) = txtLine(20) & "CAM04"
-            'Debug.Print txtLine(20)
-        ElseIf (txtLine(20) = "_0-5_") Then
-            txtLine(20) = txtLine(20) & "CAM05"
-            'Debug.Print txtLine(20)
-        ElseIf (txtLine(20) = "_0-6_") Then
-            txtLine(20) = txtLine(20) & "CAM06"
-            'Debug.Print txtLine(20)
-        ElseIf (txtLine(20) = "_0-7_") Then
-            txtLine(20) = txtLine(20) & "CAM07"
-            'Debug.Print txtLine(20)
-        End If
-
-        
-        'Debug.Print a
-        'Debug.Print txtLine(20)
-        Print #4, txtLine(20)
-        If (txtLine(20) = "EOF") Then
-            Exit Do
-        End If
-    Loop
-    
+        Do While (1)
+            a = a + 1
+            
+            If (txtLine(a) = "_0-0_") Then
+                txtLine(a) = txtLine(a) & "ORIGIN"
+            ElseIf (txtLine(a) = "_0-1_") Then
+                txtLine(a) = txtLine(a) & "CAM01"
+            ElseIf (txtLine(a) = "_0-2_") Then
+                txtLine(a) = txtLine(a) & "CAM02"
+            ElseIf (txtLine(a) = "_0-3_") Then
+                txtLine(a) = txtLine(a) & "CAM03"
+            ElseIf (txtLine(a) = "_0-4_") Then
+                txtLine(a) = txtLine(a) & "CAM04"
+            ElseIf (txtLine(a) = "_0-5_") Then
+                txtLine(a) = txtLine(a) & "CAM05"
+            ElseIf (txtLine(a) = "_0-6_") Then
+                txtLine(a) = txtLine(a) & "CAM06"
+            ElseIf (txtLine(a) = "_0-7_") Then
+                txtLine(a) = txtLine(a) & "CAM07"
+            End If
+            Print #4, txtLine(a)
+            If (txtLine(a) = "EOF") Then
+                Exit Do
+            End If
+        Loop
     Close #4
-    Debug.Print "çµ‚ã‚ã‚Šã§ãƒ¼ã™"
+    Debug.Print "I‚í‚è‚Å[‚·"
 End Sub
-Sub head()
+
+Function head14()
     Print #1, "0"           '1
     Print #1, "SECTION"     '2
     Print #1, "2"           '3
@@ -154,7 +138,7 @@ Sub head()
     Print #1, "70"  '61
     Print #1, "64"  '62
     Print #1, "3"   '63
-    Print #1, "å®Ÿç·š"    '64
+    Print #1, "Àü"    '64
     Print #1, "72"  '65
     Print #1, "65"  '66
     Print #1, "73"  '67
@@ -336,7 +320,7 @@ Sub head()
     Print #1, "70"  '243
     Print #1, "64"  '244
     Print #1, "3"   '245
-    Print #1, "ãƒ€ãƒŸãƒ¼"  '246
+    Print #1, "ƒ_ƒ~["  '246
     Print #1, "72"  '247
     Print #1, "65"  '248
     Print #1, "73"  '249
@@ -350,7 +334,7 @@ Sub head()
     Print #1, "70"  '257
     Print #1, "64"  '258
     Print #1, "3"   '259
-    Print #1, "ãƒ©ãƒ³ãƒ€ãƒ ç·š1" '260
+    Print #1, "ƒ‰ƒ“ƒ_ƒ€ü1" '260
     Print #1, "72"  '261
     Print #1, "65"  '262
     Print #1, "73"  '263
@@ -372,7 +356,7 @@ Sub head()
     Print #1, "70"  '279
     Print #1, "64"  '280
     Print #1, "3"   '281
-    Print #1, "ãƒ©ãƒ³ãƒ€ãƒ ç·š2" '282
+    Print #1, "ƒ‰ƒ“ƒ_ƒ€ü2" '282
     Print #1, "72"  '283
     Print #1, "65"  '284
     Print #1, "73"  '285
@@ -394,7 +378,7 @@ Sub head()
     Print #1, "70"  '301
     Print #1, "64"  '302
     Print #1, "3"   '303
-    Print #1, "ãƒ©ãƒ³ãƒ€ãƒ ç·š3" '304
+    Print #1, "ƒ‰ƒ“ƒ_ƒ€ü3" '304
     Print #1, "72"  '305
     Print #1, "65"  '306
     Print #1, "73"  '307
@@ -416,7 +400,7 @@ Sub head()
     Print #1, "70"  '323
     Print #1, "64"  '324
     Print #1, "3"   '325
-    Print #1, "ãƒ©ãƒ³ãƒ€ãƒ ç·š4" '326
+    Print #1, "ƒ‰ƒ“ƒ_ƒ€ü4" '326
     Print #1, "72"  '327
     Print #1, "65"  '328
     Print #1, "73"  '329
@@ -438,7 +422,7 @@ Sub head()
     Print #1, "70"  '345
     Print #1, "64"  '346
     Print #1, "3"   '347
-    Print #1, "ãƒ©ãƒ³ãƒ€ãƒ ç·š5" '348
+    Print #1, "ƒ‰ƒ“ƒ_ƒ€ü5" '348
     Print #1, "72"  '349
     Print #1, "65"  '350
     Print #1, "73"  '351
@@ -1332,4 +1316,18 @@ Sub head()
     Print #1, "2"           '1219
     Print #1, "ENTITIES"    '1220
     'Print #1, "0"
+End Function
+Function DesktopFilepath(filePath) As String
+    DesktopFilepath = "C:\Users\" + Environ("Username") + "\Desktop\"
+End Function
+Sub foot()
+    Print #3, "0"
+    Print #3, "ENDSEC"
+    Print #3, "0"
+    Print #3, "EOF"
 End Sub
+Function stime() As String
+stime = Format(Now, "yyyy-mm-dd-hh-nn-ss")
+Debug.Print "start time" & stime
+
+End Function
