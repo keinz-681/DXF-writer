@@ -48,22 +48,22 @@ Sub DXFwriter1()
         Do While (1)
             a = a + 1
             
-            If (txtLine(a) = "_0-0_") Then
-                txtLine(a) = txtLine(a) & "ORIGIN"
-            ElseIf (txtLine(a) = "_0-1_") Then
-                txtLine(a) = txtLine(a) & "CAM01"
-            ElseIf (txtLine(a) = "_0-2_") Then
-                txtLine(a) = txtLine(a) & "CAM02"
-            ElseIf (txtLine(a) = "_0-3_") Then
-                txtLine(a) = txtLine(a) & "CAM03"
-            ElseIf (txtLine(a) = "_0-4_") Then
-                txtLine(a) = txtLine(a) & "CAM04"
-            ElseIf (txtLine(a) = "_0-5_") Then
-                txtLine(a) = txtLine(a) & "CAM05"
-            ElseIf (txtLine(a) = "_0-6_") Then
-                txtLine(a) = txtLine(a) & "CAM06"
-            ElseIf (txtLine(a) = "_0-7_") Then
-                txtLine(a) = txtLine(a) & "CAM07"
+            If (Left(txtLine(a), 5) = "_0-0_") Then
+                txtLine(a) = Left(txtLine(a), 5) & "ORIGIN"
+            ElseIf (Left(txtLine(a), 5) = "_0-1_") Then
+                txtLine(a) = Left(txtLine(a), 5) & "CAM01"
+            ElseIf (Left(txtLine(a), 5) = "_0-2_") Then
+                txtLine(a) = Left(txtLine(a), 5) & "CAM02"
+            ElseIf (Left(txtLine(a), 5) = "_0-3_") Then
+                txtLine(a) = Left(txtLine(a), 5) & "CAM03"
+            ElseIf (Left(txtLine(a), 5) = "_0-4_") Then
+                txtLine(a) = Left(txtLine(a), 5) & "CAM04"
+            ElseIf (Left(txtLine(a), 5) = "_0-5_") Then
+                txtLine(a) = Left(txtLine(a), 5) & "CAM05"
+            ElseIf (Left(txtLine(a), 5) = "_0-6_") Then
+                txtLine(a) = Left(txtLine(a), 5) & "CAM06"
+            ElseIf (Left(txtLine(a), 5) = "_0-7_") Then
+                txtLine(a) = Left(txtLine(a), 5) & "CAM07"
             End If
             Print #4, txtLine(a)
             If (txtLine(a) = "EOF") Then
@@ -73,7 +73,6 @@ Sub DXFwriter1()
     Close #4
     Debug.Print "èIÇÌÇËÇ≈Å[Ç∑"
 End Sub
-
 Function head14()
     Print #1, "0"           '1
     Print #1, "SECTION"     '2
