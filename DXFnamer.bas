@@ -1,6 +1,5 @@
-Attribute VB_Name = "DXFwriter"
-' dxf writer ‚ÉŠÖ‚·‚éˆê˜A‚Ì»ì
-Sub DXFwriter1()
+Attribute VB_Name = "DXFnamer"
+Sub DXFnamer()
     stime
     Dim n As Integer, originpath, generatepath As String
     Dim getline(2) As String
