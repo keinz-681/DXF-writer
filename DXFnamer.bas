@@ -6,20 +6,25 @@ Sub DXFnamer()
     
     Dim txtLine() As String
     ChDir DesktopFilepath(filePath)
-    originpath = Application.GetOpenFilename(filefilter:="DXFdata(*.dxf;),", Title:="ƒŒƒCƒ„[–¼‚ğ‘‚¢‚Ä‚¢‚È‚¢ƒtƒ@ƒCƒ‹‚ğ‘I‘ğ")
+    originpath = Application.GetOpenFilename(filefilter:="DXFdata(*.dxf;),", Title:="ãƒ¬ã‚¤ãƒ¤ãƒ¼åã‚’æ›¸ã„ã¦ã„ãªã„ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é¸æŠ")
     
     If (originpath = False) Then
         Exit Sub
     End If
-    generatepath = Application.GetSaveAsFilename("output", filefilter:="dxf(*.dxf;),", Title:="¶¬æ‚Ìƒtƒ@ƒCƒ‹‚ğw’è")
+    generatepath = Application.GetSaveAsFilename("output", filefilter:="dxf(*.dxf;),", Title:="ç”Ÿæˆå…ˆã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æŒ‡å®š")
     If (generatepath = originpath) Then
         Exit Sub
     End If
     
     Open originpath For Input As #1
         Do While Not EOF(1)
-            i = i + 1
             Line Input #1, getline(0)
+            If (getline(0) = "ENTITIES") Then
+                Do While Not EOF(1)
+                    i = i + 1
+                    Line Input #1, getline(0)
+                Loop
+            End If
         Loop
     Close #1
     
@@ -70,7 +75,7 @@ Sub DXFnamer()
             End If
         Loop
     Close #4
-    Debug.Print "I‚í‚è‚Å[‚·"
+    Debug.Print "çµ‚ã‚ã‚Šã§ãƒ¼ã™"
 End Sub
 Function head14()
     Print #1, "0"           '1
@@ -136,7 +141,7 @@ Function head14()
     Print #1, "70"  '61
     Print #1, "64"  '62
     Print #1, "3"   '63
-    Print #1, "Àü"    '64
+    Print #1, "å®Ÿç·š"    '64
     Print #1, "72"  '65
     Print #1, "65"  '66
     Print #1, "73"  '67
@@ -318,7 +323,7 @@ Function head14()
     Print #1, "70"  '243
     Print #1, "64"  '244
     Print #1, "3"   '245
-    Print #1, "ƒ_ƒ~["  '246
+    Print #1, "ãƒ€ãƒŸãƒ¼"  '246
     Print #1, "72"  '247
     Print #1, "65"  '248
     Print #1, "73"  '249
@@ -332,7 +337,7 @@ Function head14()
     Print #1, "70"  '257
     Print #1, "64"  '258
     Print #1, "3"   '259
-    Print #1, "ƒ‰ƒ“ƒ_ƒ€ü1" '260
+    Print #1, "ãƒ©ãƒ³ãƒ€ãƒ ç·š1" '260
     Print #1, "72"  '261
     Print #1, "65"  '262
     Print #1, "73"  '263
@@ -354,7 +359,7 @@ Function head14()
     Print #1, "70"  '279
     Print #1, "64"  '280
     Print #1, "3"   '281
-    Print #1, "ƒ‰ƒ“ƒ_ƒ€ü2" '282
+    Print #1, "ãƒ©ãƒ³ãƒ€ãƒ ç·š2" '282
     Print #1, "72"  '283
     Print #1, "65"  '284
     Print #1, "73"  '285
@@ -376,7 +381,7 @@ Function head14()
     Print #1, "70"  '301
     Print #1, "64"  '302
     Print #1, "3"   '303
-    Print #1, "ƒ‰ƒ“ƒ_ƒ€ü3" '304
+    Print #1, "ãƒ©ãƒ³ãƒ€ãƒ ç·š3" '304
     Print #1, "72"  '305
     Print #1, "65"  '306
     Print #1, "73"  '307
@@ -398,7 +403,7 @@ Function head14()
     Print #1, "70"  '323
     Print #1, "64"  '324
     Print #1, "3"   '325
-    Print #1, "ƒ‰ƒ“ƒ_ƒ€ü4" '326
+    Print #1, "ãƒ©ãƒ³ãƒ€ãƒ ç·š4" '326
     Print #1, "72"  '327
     Print #1, "65"  '328
     Print #1, "73"  '329
@@ -420,7 +425,7 @@ Function head14()
     Print #1, "70"  '345
     Print #1, "64"  '346
     Print #1, "3"   '347
-    Print #1, "ƒ‰ƒ“ƒ_ƒ€ü5" '348
+    Print #1, "ãƒ©ãƒ³ãƒ€ãƒ ç·š5" '348
     Print #1, "72"  '349
     Print #1, "65"  '350
     Print #1, "73"  '351
