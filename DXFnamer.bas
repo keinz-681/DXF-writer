@@ -1,18 +1,18 @@
 Attribute VB_Name = "DXFnamer"
 Sub DXFnamer()
     stime
-    Dim n, a As Integer, originpath, generatepath As String
-    Dim getline(2) As String
-    Dim txtLine() As String
+    Dim n, a As Integer
+    Dim originpath, generatepath As String
+    Dim getline(2), txtline() As String
     ChDir DesktopFilepath(filepath)
     originpath = Application.GetOpenFilename(filefilter:="DXFdata(*.dxf;),", Title:="レイヤー名を修正するファイルを選択")
-    If (originpath = False) Then
-        Exit Sub
-    End If
+    
+    If (originpath = False) Then Exit Sub
+    
     generatepath = Application.GetSaveAsFilename("output", filefilter:="DXFdata(*.dxf;),", Title:="生成先のファイルを指定")
-    If (generatepath = originpath) Then
-        Exit Sub
-    End If
+    
+    If (generatepath = originpath) Then Exit Sub
+    
     Open originpath For Input As #1
         Do While Not EOF(1)
             Line Input #1, getline(0)
@@ -28,10 +28,10 @@ Sub DXFnamer()
         Do While Not EOF(1)
             Line Input #1, getline(1)
             If (getline(1) = "ENTITIES") Then
-                ReDim txtLine(i)
+                ReDim txtline(i)
                 Do While Not EOF(1)
                     n = n + 1
-                    Line Input #1, txtLine(n)
+                    Line Input #1, txtline(n)
                 Loop
             End If
         Loop
@@ -40,30 +40,27 @@ Sub DXFnamer()
     Open generatepath For Append As #4
         Do While (1)
             a = a + 1
-            If (Left(txtLine(a), 5) = "_0-0_") Then
-                txtLine(a) = Left(txtLine(a), 5) & "ORIGIN"
-            ElseIf (Left(txtLine(a), 5) = "_0-1_") Then
-                txtLine(a) = Left(txtLine(a), 5) & "CAM01"
-            ElseIf (Left(txtLine(a), 5) = "_0-2_") Then
-                txtLine(a) = Left(txtLine(a), 5) & "CAM02"
-            ElseIf (Left(txtLine(a), 5) = "_0-3_") Then
-                txtLine(a) = Left(txtLine(a), 5) & "CAM03"
-            ElseIf (Left(txtLine(a), 5) = "_0-4_") Then
-                txtLine(a) = Left(txtLine(a), 5) & "CAM04"
-            ElseIf (Left(txtLine(a), 5) = "_0-5_") Then
-                txtLine(a) = Left(txtLine(a), 5) & "CAM05"
-            ElseIf (Left(txtLine(a), 5) = "_0-6_") Then
-                txtLine(a) = Left(txtLine(a), 5) & "CAM06"
-            ElseIf (Left(txtLine(a), 5) = "_0-7_") Then
-                txtLine(a) = Left(txtLine(a), 5) & "CAM07"
+            If (Left(txtline(a), 5) = "_0-0_") Then
+                txtline(a) = Left(txtline(a), 5) & "ORIGIN"
+            ElseIf (Left(txtline(a), 5) = "_0-1_") Then
+                txtline(a) = Left(txtline(a), 5) & "CAM01"
+            ElseIf (Left(txtline(a), 5) = "_0-2_") Then
+                txtline(a) = Left(txtline(a), 5) & "CAM02"
+            ElseIf (Left(txtline(a), 5) = "_0-3_") Then
+                txtline(a) = Left(txtline(a), 5) & "CAM03"
+            ElseIf (Left(txtline(a), 5) = "_0-4_") Then
+                txtline(a) = Left(txtline(a), 5) & "CAM04"
+            ElseIf (Left(txtline(a), 5) = "_0-5_") Then
+                txtline(a) = Left(txtline(a), 5) & "CAM05"
+            ElseIf (Left(txtline(a), 5) = "_0-6_") Then
+                txtline(a) = Left(txtline(a), 5) & "CAM06"
+            ElseIf (Left(txtline(a), 5) = "_0-7_") Then
+                txtline(a) = Left(txtline(a), 5) & "CAM07"
             End If
-            Print #4, txtLine(a)
-            If (txtLine(a) = "EOF") Then
-                Exit Do
-            End If
+            Print #4, txtline(a)
+            If (txtline(a) = "EOF") Then Exit Do
         Loop
     Close #4
-
     Debug.Print "終わりでーす"
 End Sub
 Function head14(filepath As String)
