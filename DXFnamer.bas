@@ -1,15 +1,16 @@
 Attribute VB_Name = "DXFnamer"
+
 Sub DXFnamer()
     ptime ("start time")
     Dim n, a As Integer
     Dim originpath, generatepath As String
     Dim getline(2), txtline() As String
     ChDir DesktopFilepath(filepath)
-    originpath = Application.GetOpenFilename(filefilter:="DXFdata(*.dxf;),", Title:="ãƒ¬ã‚¤ãƒ¤ãƒ¼åã‚’ä¿®æ­£ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é¸æŠ")
+    originpath = Application.GetOpenFilename(filefilter:="DXFdata(*.dxf;),", Title:="ƒŒƒCƒ„[–¼‚ğC³‚·‚éƒtƒ@ƒCƒ‹‚ğ‘I‘ğ")
     
     If (originpath = False) Then Exit Sub
     
-    generatepath = Application.GetSaveAsFilename("output", filefilter:="DXFdata(*.dxf;),", Title:="ç”Ÿæˆå…ˆã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æŒ‡å®š")
+    generatepath = Application.GetSaveAsFilename("output", filefilter:="DXFdata(*.dxf;),", Title:="¶¬æ‚Ìƒtƒ@ƒCƒ‹‚ğw’è")
     
     If (generatepath = originpath) Then Exit Sub
     
@@ -61,9 +62,9 @@ Sub DXFnamer()
             If (txtline(a) = "EOF") Then Exit Do
         Loop
     Close #4
-    ptime ("å‡¦ç†çµ‚äº†")
+    ptime ("ˆ—I—¹")
 End Sub
-Function head14(filepath As String)
+Private Function head14(filepath As String)
     Open filepath For Output As #1
         Print #1, "0"
         Print #1, "SECTION"
@@ -1308,8 +1309,12 @@ Function head14(filepath As String)
         'Print #1, "0"
     Close #1
 End Function
-Function ptime(mes As String)
-Dim Ntime as String
-Ntime = Format(Now, "yyyy-mm-dd-hh-nn-ss")
-Debug.Print mes & " : " & Ntime
+Private Function stime() As String
+    stime = Format(Now, "yyyy-mm-dd-hh-nn-ss")
+    Debug.Print "start time" & stime
 End Function
+Private Function ptime(mes As String) As String
+    ptime = Format(Now, "yyyy-mm-dd-hh-nn-ss")
+    Debug.Print mes & " : " & ptime
+End Function
+
