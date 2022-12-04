@@ -1,6 +1,5 @@
 Attribute VB_Name = "DXFnamer"
-
-Sub DXFnamer()
+Sub main()
     ptime ("start time")
     Dim n, a As Integer
     Dim originpath, generatepath As String
@@ -25,6 +24,7 @@ Sub DXFnamer()
             End If
         Loop
     Close #1
+    
     Open originpath For Input As #1
         Do While Not EOF(1)
             Line Input #1, getline(1)
@@ -37,34 +37,29 @@ Sub DXFnamer()
             End If
         Loop
     Close #1
-    head14 (generatepath)
+    
+    header (generatepath)
+    
     Open generatepath For Append As #4
         Do While (1)
             a = a + 1
-            If (Left(txtline(a), 5) = "_0-0_") Then
-                txtline(a) = Left(txtline(a), 5) & "ORIGIN"
-            ElseIf (Left(txtline(a), 5) = "_0-1_") Then
-                txtline(a) = Left(txtline(a), 5) & "CAM01"
-            ElseIf (Left(txtline(a), 5) = "_0-2_") Then
-                txtline(a) = Left(txtline(a), 5) & "CAM02"
-            ElseIf (Left(txtline(a), 5) = "_0-3_") Then
-                txtline(a) = Left(txtline(a), 5) & "CAM03"
-            ElseIf (Left(txtline(a), 5) = "_0-4_") Then
-                txtline(a) = Left(txtline(a), 5) & "CAM04"
-            ElseIf (Left(txtline(a), 5) = "_0-5_") Then
-                txtline(a) = Left(txtline(a), 5) & "CAM05"
-            ElseIf (Left(txtline(a), 5) = "_0-6_") Then
-                txtline(a) = Left(txtline(a), 5) & "CAM06"
-            ElseIf (Left(txtline(a), 5) = "_0-7_") Then
-                txtline(a) = Left(txtline(a), 5) & "CAM07"
-            End If
+            If (Left(txtline(a), 5) = "_0-0_") Then txtline(a) = Left(txtline(a), 5) & "ORIGIN"
+            If (Left(txtline(a), 5) = "_0-1_") Then txtline(a) = Left(txtline(a), 5) & "CAM01"
+            If (Left(txtline(a), 5) = "_0-2_") Then txtline(a) = Left(txtline(a), 5) & "CAM02"
+            If (Left(txtline(a), 5) = "_0-3_") Then txtline(a) = Left(txtline(a), 5) & "CAM03"
+            If (Left(txtline(a), 5) = "_0-4_") Then txtline(a) = Left(txtline(a), 5) & "CAM04"
+            If (Left(txtline(a), 5) = "_0-5_") Then txtline(a) = Left(txtline(a), 5) & "CAM05"
+            If (Left(txtline(a), 5) = "_0-6_") Then txtline(a) = Left(txtline(a), 5) & "CAM06"
+            If (Left(txtline(a), 5) = "_0-7_") Then txtline(a) = Left(txtline(a), 5) & "CAM07"
             Print #4, txtline(a)
             If (txtline(a) = "EOF") Then Exit Do
         Loop
     Close #4
+    
     ptime ("èàóùèIóπ")
+    
 End Sub
-Private Function head14(filepath As String)
+Private Function header(filepath As String)
     Open filepath For Output As #1
         Print #1, "0"
         Print #1, "SECTION"
@@ -1308,10 +1303,6 @@ Private Function head14(filepath As String)
         Print #1, "ENTITIES"
         'Print #1, "0"
     Close #1
-End Function
-Private Function stime() As String
-    stime = Format(Now, "yyyy-mm-dd-hh-nn-ss")
-    Debug.Print "start time" & stime
 End Function
 Private Function ptime(mes As String) As String
     ptime = Format(Now, "yyyy-mm-dd-hh-nn-ss")
