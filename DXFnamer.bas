@@ -4,7 +4,7 @@ Sub main()
     Dim n, a As Integer
     Dim originpath, generatepath As String
     Dim getline(2), txtline() As String
-    ChDir DesktopFilepath(filepath)
+    ChDir DesktopFilepath
     originpath = Application.GetOpenFilename(filefilter:="DXFdata(*.dxf;),", Title:="レイヤー名を修正するファイルを選択")
     
     If (originpath = False) Then Exit Sub
@@ -56,7 +56,7 @@ Sub main()
         Loop
     Close #4
     
-    ptime ("処理終了")
+    ptime ("Program Finished")
     
 End Sub
 Private Function header(filepath As String)
@@ -1308,4 +1308,6 @@ Private Function ptime(mes As String) As String
     ptime = Format(Now, "yyyy-mm-dd-hh-nn-ss")
     Debug.Print mes & " : " & ptime
 End Function
-
+Private Function DesktopFilepath() As String
+    DesktopFilepath = "C:\Users\" & Environ("Username") & "\Desktop\"
+End Function
