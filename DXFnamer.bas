@@ -1,9 +1,9 @@
 Attribute VB_Name = "DXFnamer"
 Sub main()
     ptime ("start time")
-    Dim n, a As Integer
+    Dim n, a, i As Integer
     Dim originpath, generatepath As String
-    Dim getline(2), txtline() As String
+    Dim getline, txtline() As String
     ChDir DesktopFilepath
     originpath = Application.GetOpenFilename(filefilter:="DXFdata(*.dxf;),", Title:="レイヤー名を修正するファイルを選択")
     
@@ -15,11 +15,11 @@ Sub main()
     
     Open originpath For Input As #1
         Do While Not EOF(1)
-            Line Input #1, getline(0)
-            If (getline(0) = "ENTITIES") Then
+            Line Input #1, getline
+            If (getline = "ENTITIES") Then
                 Do While Not EOF(1)
                     i = i + 1
-                    Line Input #1, getline(0)
+                    Line Input #1, getline
                 Loop
             End If
         Loop
@@ -27,8 +27,8 @@ Sub main()
     
     Open originpath For Input As #1
         Do While Not EOF(1)
-            Line Input #1, getline(1)
-            If (getline(1) = "ENTITIES") Then
+            Line Input #1, getline
+            If (getline = "ENTITIES") Then
                 ReDim txtline(i)
                 Do While Not EOF(1)
                     n = n + 1
@@ -57,7 +57,6 @@ Sub main()
     Close #4
     
     ptime ("Program Finished")
-    
 End Sub
 Private Function header(filepath As String)
     Open filepath For Output As #1
