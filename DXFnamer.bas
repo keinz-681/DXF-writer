@@ -43,14 +43,15 @@ Sub main()
     Open generatepath For Append As #4
         Do While (1)
             a = a + 1
-            If (Left(txtline(a), 5) = "_0-0_") Then txtline(a) = Left(txtline(a), 5) & "ORIGIN"
-            If (Left(txtline(a), 5) = "_0-1_") Then txtline(a) = Left(txtline(a), 5) & "CAM01"
-            If (Left(txtline(a), 5) = "_0-2_") Then txtline(a) = Left(txtline(a), 5) & "CAM02"
-            If (Left(txtline(a), 5) = "_0-3_") Then txtline(a) = Left(txtline(a), 5) & "CAM03"
-            If (Left(txtline(a), 5) = "_0-4_") Then txtline(a) = Left(txtline(a), 5) & "CAM04"
-            If (Left(txtline(a), 5) = "_0-5_") Then txtline(a) = Left(txtline(a), 5) & "CAM05"
-            If (Left(txtline(a), 5) = "_0-6_") Then txtline(a) = Left(txtline(a), 5) & "CAM06"
-            If (Left(txtline(a), 5) = "_0-7_") Then txtline(a) = Left(txtline(a), 5) & "CAM07"
+            txtline(a) = Left(txtline(a), 5)
+            If (txtline(a) = "_0-0_") Then txtline(a) = txtline(a) & "ORIGIN"
+            If (txtline(a) = "_0-1_") Then txtline(a) = txtline(a) & "CAM01"
+            If (txtline(a) = "_0-2_") Then txtline(a) = txtline(a) & "CAM02"
+            If (txtline(a) = "_0-3_") Then txtline(a) = txtline(a) & "CAM03"
+            If (txtline(a) = "_0-4_") Then txtline(a) = txtline(a) & "CAM04"
+            If (txtline(a) = "_0-5_") Then txtline(a) = txtline(a) & "CAM05"
+            If (txtline(a) = "_0-6_") Then txtline(a) = txtline(a) & "CAM06"
+            If (txtline(a) = "_0-7_") Then txtline(a) = txtline(a) & "CAM07"
             Print #4, txtline(a)
             If (txtline(a) = "EOF") Then Exit Do
         Loop
