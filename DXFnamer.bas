@@ -1,7 +1,7 @@
 Attribute VB_Name = "DXFnamer"
 Sub main()
     ptime ("start time")
-    Dim n, a, i As Integer
+    Dim i As Integer
     Dim originpath, generatepath As String
     Dim getline, txtline() As String
     ChDir DesktopFilepath
@@ -14,52 +14,48 @@ Sub main()
     If (generatepath = originpath) Then Exit Sub
     
     Open originpath For Input As #1
-        Do While Not EOF(1)
-            Line Input #1, getline
+        Do While Not EOF(1): Line Input #1, getline
             If (getline = "ENTITIES") Then
                 Do While Not EOF(1)
-                    i = i + 1
-                    Line Input #1, getline
+                    i = i + 1: Line Input #1, getline
                 Loop
             End If
         Loop
     Close #1
     
     Open originpath For Input As #1
-        Do While Not EOF(1)
-            Line Input #1, getline
+        Do While Not EOF(1): Line Input #1, getline
             If (getline = "ENTITIES") Then
-                ReDim txtline(i)
+                ReDim txtline(i): i = 0
                 Do While Not EOF(1)
-                    n = n + 1
-                    Line Input #1, txtline(n)
+                    i = i + 1: Line Input #1, txtline(i)
                 Loop
             End If
         Loop
     Close #1
     
-    header (generatepath)
+    Dxf_header (generatepath)
+    i = 0
     
     Open generatepath For Append As #4
         Do While (1)
-            a = a + 1
-            txtline(a) = Left(txtline(a), 5)
-            If (txtline(a) = "_0-0_") Then txtline(a) = txtline(a) & "ORIGIN"
-            If (txtline(a) = "_0-1_") Then txtline(a) = txtline(a) & "CAM01"
-            If (txtline(a) = "_0-2_") Then txtline(a) = txtline(a) & "CAM02"
-            If (txtline(a) = "_0-3_") Then txtline(a) = txtline(a) & "CAM03"
-            If (txtline(a) = "_0-4_") Then txtline(a) = txtline(a) & "CAM04"
-            If (txtline(a) = "_0-5_") Then txtline(a) = txtline(a) & "CAM05"
-            If (txtline(a) = "_0-6_") Then txtline(a) = txtline(a) & "CAM06"
-            If (txtline(a) = "_0-7_") Then txtline(a) = txtline(a) & "CAM07"
-            Print #4, txtline(a)
-            If (txtline(a) = "EOF") Then Exit Do
+            i = i + 1: txtline(i) = Left(txtline(i), 5)
+            If (txtline(i) = "_0-0_") Then txtline(i) = txtline(i) & "ORIGIN"
+            If (txtline(i) = "_0-1_") Then txtline(i) = txtline(i) & "CAM01"
+            If (txtline(i) = "_0-2_") Then txtline(i) = txtline(i) & "CAM02"
+            If (txtline(i) = "_0-3_") Then txtline(i) = txtline(i) & "CAM03"
+            If (txtline(i) = "_0-4_") Then txtline(i) = txtline(i) & "CAM04"
+            If (txtline(i) = "_0-5_") Then txtline(i) = txtline(i) & "CAM05"
+            If (txtline(i) = "_0-6_") Then txtline(i) = txtline(i) & "CAM06"
+            If (txtline(i) = "_0-7_") Then txtline(i) = txtline(i) & "CAM07"
+            Print #4, txtline(i)
+            If (txtline(i) = "EOF") Then Exit Do
         Loop
     Close #4
     
     ptime ("Program Finished")
 End Sub
-Private Function header(filepath As String)
+Private Function Dxf_header(filepath As String)
     Open filepath For Output As #1
         Print #1, "0"
         Print #1, "SECTION"
@@ -1301,12 +1297,11 @@ Private Function header(filepath As String)
         Print #1, "SECTION"
         Print #1, "2"
         Print #1, "ENTITIES"
-        'Print #1, "0"
     Close #1
 End Function
-Private Function ptime(mes As String) As String
+Private Function ptime(message As String) As String
     ptime = Format(Now, "yyyy-mm-dd-hh-nn-ss")
-    Debug.Print mes & " : " & ptime
+    Debug.Print message & " : " & ptime
 End Function
 Private Function DesktopFilepath() As String
     DesktopFilepath = "C:\Users\" & Environ("Username") & "\Desktop\"
