@@ -1,15 +1,15 @@
 Attribute VB_Name = "DXFnamer"
+Option Explicit
 Sub main()
-    ptime ("start time")
+    ptime ("process started")
     Dim i As Integer
-    Dim originpath, generatepath As String
-    Dim getline, txtline() As String
+    Dim originpath, generatepath, getline, txtline() As String
     ChDir DesktopFilepath
-    originpath = Application.GetOpenFilename(filefilter:="DXFdata(*.dxf;),", Title:="レイヤー名を修正するファイルを選択")
+    originpath = Application.GetOpenFilename(filefilter:="DXFdata(*.dxf;),", Title:="Choose dxf-file add layer name")
     
     If (originpath = False) Then Exit Sub
     
-    generatepath = Application.GetSaveAsFilename("output", filefilter:="DXFdata(*.dxf;),", Title:="生成先のファイルを指定")
+    generatepath = Application.GetSaveAsFilename("output", filefilter:="DXFdata(*.dxf;),", Title:="Specify generate file path")
     
     If (generatepath = originpath) Then Exit Sub
     
@@ -34,8 +34,7 @@ Sub main()
         Loop
     Close #1
     
-    Dxf_header (generatepath)
-    i = 0
+    Dxf_header (generatepath): i = 0
     
     Open generatepath For Append As #4
         Do While (1)
@@ -53,7 +52,7 @@ Sub main()
         Loop
     Close #4
     
-    ptime ("Program Finished")
+    ptime ("process finished")
 End Sub
 Private Function Dxf_header(filepath As String)
     Open filepath For Output As #1
