@@ -3,7 +3,10 @@ Option Explicit
 Sub main()
     ptime ("process started")
     Dim i As Integer
-    Dim originpath, generatepath, getline, txtline() As String
+    Dim originpath As String
+		Dim generatepath As String
+		Dim getline As String
+	  Dim txtline() As String
     ChDir DesktopFilepath
     originpath = Application.GetOpenFilename(filefilter:="DXFdata(*.dxf;),", Title:="Choose dxf-file add layer name")
     
